@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* カスタムカラム */
+@layer base {
+  @font-face {
+    font-family: 'Noto Sans JP', 'sans-serif';
+    font-style: normal;
+    font-weight: 400;
+    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+  * {
+    @apply text-base;
+  }
+
+  /* スムーズクロール */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-100 text-gray-900;
+  }
+}
+
+@layer components {
+  /* ボタン */
+  .btn-primary {
+    @apply px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+  }
+
+  .btn-success {
+    @apply px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200;
+  }
+
+  .btn-danger {
+    @apply px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors duration-200;
+  }
+
+  /* カード */
+  .card {
+    @apply bg-white rounded-lg shadow;
+  }
+
+  .card-header {
+    @apply px-6 py-4 border-b border-gray-200;
+  }
+
+  .card-body {
+    @apply p-6;
+  }
+
+  /* 入力フィールド */
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 focus:outline-none;
+  }
+
+  .label-field {
+    @apply block text-sm font-medium text-gray-700 mb-2;
+  }
+
+  /* テーブル */
+  .table {
+    @apply w-full text-left;
+  }
+
+  .table-header {
+    @apply px-6 py-3 bg-gray-50 font-semibold text-gray-900;
+  }
+
+  .table-row {
+    @apply px-6 py-4 border-b border-gray-200 hover:bg-gray-50 transition-colors;
+  }
+
+  /* バッジ */
+  .badge {
+    @apply px-2 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-800;
+  }
+
+  .badge-danger {
+    @apply bg-red-100 text-red-800;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+
+  .badge-info {
+    @apply bg-blue-100 text-blue-800;
+  }
+}
+
+@layer utilities {
+  /* アニメーション */
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-in;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  /* レスポンシブデザイン */
+  @media (max-width: 768px) {
+    .responsive-grid {
+      @apply grid-cols-1;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .responsive-grid {
+      @apply grid-cols-2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .responsive-grid {
+      @apply grid-cols-3;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .responsive-grid {
+      @apply grid-cols-4;
+    }
+  }
+
+  /* スクロールバー */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}

@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { useStore } from '../state/store';
-import { Save, X, Server, Database, Globe, Sliders, RefreshCw, Download, Key } from 'lucide-react';
+import { Save, X, Server, Database, Globe, Sliders, RefreshCw, Download, Key, Zap } from 'lucide-react';
 
 export function Settings() {
   const apiBaseUrl = useStore(state => state.apiBaseUrl);
   const [settings, setSettings] = useState({
     apiBaseUrl: apiBaseUrl,
+    healthCheckInterval: 30000,
+    defaultAgent: 'claude_code',
+    autoFallback: false,
+    maxRetries: 3,
+    connectionPoolSize: 10,
+    keyExpiry: 3600,
+    refreshInterval: 30,
+    language: 'ja',
     theme: 'light',
     notifications: true,
     autoRefresh: false,
@@ -327,7 +335,6 @@ export function Settings() {
         <p className="text-sm text-gray-600 mt-1 ml-6">
           有効にすると、ダッシュボードが自動的に最新データを取得
         </p>
-        </div>
 
         {/* 更新間隔 */}
         <div className="mt-4">
@@ -357,7 +364,7 @@ export function Settings() {
       </div>
 
       {/* アプリケーション設定 */}
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-white rounded-lg shadow p-6 mb-6">
         <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200">
           <Globe className="h-6 w-6 text-purple-500" />
           <h2 className="text-lg font-semibold text-gray-900">
@@ -401,11 +408,13 @@ export function Settings() {
           <button
             onClick={() => setSettings({
               apiBaseUrl: 'http://localhost:8000/api/v1',
+              healthCheckInterval: 30000,
               defaultAgent: 'claude_code',
               autoFallback: false,
               maxRetries: 3,
               connectionPoolSize: 10,
               keyExpiry: 3600,
+              notifications: true,
               autoRefresh: false,
               refreshInterval: 30,
               language: 'ja',

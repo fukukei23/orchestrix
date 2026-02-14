@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../state/store';
-import { BarChart, TrendingUp, DollarSign, Activity, Clock, AlertCircle, PieChart } from 'lucide-react';
+import { BarChart, TrendingUp, DollarSign, Activity, Clock, AlertCircle, PieChart, Zap } from 'lucide-react';
 import { format } from 'date-fns';
 
 export function Analytics() {

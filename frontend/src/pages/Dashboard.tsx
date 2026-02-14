@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useStore } from '../state/store';
-import { Activity, TrendingUp, Clock, DollarSign, CheckCircle, AlertCircle } from 'lucide-react';
+import { Activity, TrendingUp, Clock, DollarSign, CheckCircle, AlertCircle, FileText } from 'lucide-react';
 import { format } from 'date-fns';
 
 export function Dashboard() {

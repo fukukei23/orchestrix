@@ -5,6 +5,7 @@ export interface Task {
   id: string;
   title: string;
   description: string;
+  goal?: string;
   complexity_score: number;
   status: 'pending' | 'running' | 'completed' | 'failed';
   priority: number;
@@ -42,10 +43,23 @@ export interface OrchestrixState {
   apiBaseUrl: string;
   selectedTask: Task | null;
   isLoading: boolean;
+  setTasks: (tasks: Task[]) => void;
+  setAgents: (agents: Agent[]) => void;
+  setExecutions: (executions: Execution[]) => void;
+  setApiBaseUrl: (url: string) => void;
+  setSelectedTask: (task: Task | null) => void;
+  setIsLoading: (loading: boolean) => void;
+  fetchTasks: () => Promise<void>;
+  fetchAgents: () => Promise<void>;
+  fetchExecutions: () => Promise<void>;
+  createTask: (task: Partial<Task>) => Promise<unknown>;
+  executeTask: (taskId: string) => Promise<unknown>;
+  toggleAgent: (agentId: string, enabled: boolean) => Promise<unknown>;
+  initializeStore: () => Promise<void>;
 }
 
 // 初期状態
-const initialState: OrchestrixState = {
+const initialState = {
   tasks: [],
   agents: [],
   executions: [],
@@ -55,13 +69,8 @@ const initialState: OrchestrixState = {
 };
 
 // ストア作成
-export const useStore = create<OrchestrixState>((set) => ({
-  tasks: [],
-  agents: [],
-  executions: [],
-  apiBaseUrl: 'http://localhost:8000/api/v1',
-  selectedTask: null,
-  isLoading: false,
+export const useStore = create<OrchestrixState>((set, get) => ({
+  ...initialState,
 
   // アクション
   setTasks: (tasks: Task[]) => set({ tasks }),
@@ -75,7 +84,7 @@ export const useStore = create<OrchestrixState>((set) => ({
   fetchTasks: async () => {
     set({ isLoading: true });
     try {
-      const state = useStore.getState();
+      const state = get();
       const response = await fetch(`${state.apiBaseUrl}/tasks`);
       const data = await response.json();
       set({ tasks: data, isLoading: false });
@@ -88,7 +97,7 @@ export const useStore = create<OrchestrixState>((set) => ({
   fetchAgents: async () => {
     set({ isLoading: true });
     try {
-      const state = useStore.getState();
+      const state = get();
       const response = await fetch(`${state.apiBaseUrl}/agents`);
       const data = await response.json();
       set({ agents: data, isLoading: false });
@@ -101,7 +110,7 @@ export const useStore = create<OrchestrixState>((set) => ({
   fetchExecutions: async () => {
     set({ isLoading: true });
     try {
-      const state = useStore.getState();
+      const state = get();
       const response = await fetch(`${state.apiBaseUrl}/analytics/executions/summary`);
       const data = await response.json();
       set({ executions: data.executions || [], isLoading: false });
@@ -115,14 +124,14 @@ export const useStore = create<OrchestrixState>((set) => ({
   createTask: async (task: Partial<Task>) => {
     set({ isLoading: true });
     try {
-      const state = useStore.getState();
+      const state = get();
       const response = await fetch(`${state.apiBaseUrl}/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(task),
       });
       const data = await response.json();
-      await useStore.getState().fetchTasks();
+      await get().fetchTasks();
       set({ isLoading: false });
       return data;
     } catch (error) {
@@ -135,12 +144,12 @@ export const useStore = create<OrchestrixState>((set) => ({
   executeTask: async (taskId: string) => {
     set({ isLoading: true });
     try {
-      const state = useStore.getState();
+      const state = get();
       const response = await fetch(`${state.apiBaseUrl}/tasks/${taskId}/execute`, {
         method: 'POST',
       });
       const data = await response.json();
-      await useStore.getState().fetchTasks();
+      await get().fetchTasks();
       set({ isLoading: false });
       return data;
     } catch (error) {
@@ -153,14 +162,14 @@ export const useStore = create<OrchestrixState>((set) => ({
   // エージェント操作
   toggleAgent: async (agentId: string, enabled: boolean) => {
     try {
-      const state = useStore.getState();
+      const state = get();
       const response = await fetch(`${state.apiBaseUrl}/agents/${agentId}/toggle`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ enabled }),
       });
       const data = await response.json();
-      await useStore.getState().fetchAgents();
+      await get().fetchAgents();
       return data;
     } catch (error) {
       console.error('Failed to toggle agent:', error);
@@ -170,8 +179,8 @@ export const useStore = create<OrchestrixState>((set) => ({
 
   // ストア初期化
   initializeStore: async () => {
-    await useStore.getState().fetchTasks();
-    await useStore.getState().fetchAgents();
-    await useStore.getState().fetchExecutions();
+    await get().fetchTasks();
+    await get().fetchAgents();
+    await get().fetchExecutions();
   },
 }));

@@ -1,0 +1,34 @@
+agents:
+  claude_code:
+    name: Claude Code
+    cli_command: claude
+    default_model: claude-sonnet-4-5-20250929
+    supports_features:
+      - code
+      - file_edit
+      - bash
+    cost_per_1k_input: 3.0
+    cost_per_1k_output: 15.0
+    enabled: true
+
+  codex_cli:
+    name: Codex CLI
+    cli_command: codex
+    default_model: gpt-4
+    supports_features:
+      - code
+      - file_edit
+    cost_per_1k_input: 30.0
+    cost_per_1k_output: 60.0
+    enabled: true
+
+  gemini_cli:
+    name: Gemini CLI
+    cli_command: gemini
+    default_model: gemini-1.5-pro
+    supports_features:
+      - code
+      - multimodal
+    cost_per_1k_input: 1.25
+    cost_per_1k_output: 5.0
+    enabled: true

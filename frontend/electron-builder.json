@@ -1,0 +1,25 @@
+{
+  "appId": "ai.orchestrix.app",
+  "productName": "Orchestrix",
+  "directories": {
+    "output": "dist"
+  },
+  "files": [
+    "build/**/*",
+    "node_modules/**/*",
+    "package.json"
+  ],
+  "build": {
+    "appId": "ai.orchestrix.app",
+    "productName": "Orchestrix",
+    "win": {
+      "target": ["nsis"]
+    },
+    "mac": {
+      "target": ["dmg"]
+    },
+    "linux": {
+      "target": ["AppImage"]
+    }
+  }
+}

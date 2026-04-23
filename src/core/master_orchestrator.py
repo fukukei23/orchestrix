@@ -9,31 +9,50 @@ import logging
 
 from .complexity_analyzer import ComplexityAnalyzer
 from .task_decomposer import TaskDecomposer, SubTask
+from ..llm.llm_factory import LLMFactory
 
 
 class MasterOrchestrator:
     def __init__(self, config_path: str = None):
         self.complexity_analyzer = ComplexityAnalyzer()
         self.task_decomposer = TaskDecomposer(self.complexity_analyzer)
+        self.llm_factory = LLMFactory()
         logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         self.logger = logging.getLogger(__name__)
 
-    def orchestrate_task(self, task_description: str, context: Dict = None) -> Dict:
+    def orchestrate_task(self, task_description: str, context: Dict = None, agent_type: str = 'claude_code') -> Dict:
         if context is None:
             context = {}
         self.logger.info(f"Starting task: {task_description[:50]}...")
-
         complexity = self.complexity_analyzer.analyze(task_description, context)
         complexity_level = self.complexity_analyzer.get_complexity_level(complexity)
-
         self.logger.info(f"Complexity score: {complexity:.2f} (Level: {complexity_level})")
-
         subtasks = self.task_decomposer.decompose(task_description)
         self.logger.info(f"Decomposed into {len(subtasks)} subtasks")
 
-        return {
-            'complexity': complexity,
-            'level': complexity_level,
-            'subtasks': len(subtasks),
-            'status': 'completed'
-        }
+        # LLMを呼び出してタスクを実行
+        try:
+            llm_client = self.llm_factory.get_client(agent_type)
+            result = llm_client.invoke(task_description)
+
+            self.logger.info(f"LLM invocation successful: {result.get('model', 'unknown')}")
+
+            return {
+                'complexity': complexity,
+                'level': complexity_level,
+                'subtasks': len(subtasks),
+                'llm_result': result,
+                'agent_type': agent_type,
+                'status': 'completed' if result.get('success') else 'failed'
+            }
+
+        except Exception as e:
+            self.logger.error(f"LLM invocation failed: {e}")
+            return {
+                'complexity': complexity,
+                'level': complexity_level,
+                'subtasks': len(subtasks),
+                'llm_result': {'success': False, 'error': str(e)},
+                'agent_type': agent_type,
+                'status': 'failed'
+            }

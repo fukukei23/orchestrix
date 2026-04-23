@@ -9,3 +9,8 @@ DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://orchestrix:orchestrix_dev
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+def get_db_engine():
+    """データベースエンジンを取得する"""
+    return engine

@@ -13,7 +13,8 @@ from typing import List, Optional
 
 from ..database.connection import SessionLocal
 from ..database.models import Task, Execution, Log, AgentConfig
-from .routes import tasks, agents, analytics
+from .routes import tasks, agents, analytics, executions
+from ..auth.routes import router as auth_router
 from .dependencies import get_db, get_current_user
 
 
@@ -41,9 +42,11 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ルートをインクルード
+app.include_router(auth_router, prefix="/api/v1/auth", tags=["Auth"])
 app.include_router(tasks.router, prefix="/api/v1/tasks", tags=["Tasks"])
 app.include_router(agents.router, prefix="/api/v1/agents", tags=["Agents"])
 app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Analytics"])
+app.include_router(executions.router, prefix="/api/v1", tags=["Executions"])
 
 
 @app.get("/")

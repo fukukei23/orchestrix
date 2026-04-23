@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useStore } from '../state/store';
 import { Activity, TrendingUp, Clock, DollarSign, CheckCircle, AlertCircle, FileText } from 'lucide-react';
 import { format } from 'date-fns';
+import { ViteTestComponent } from '../components/ViteTestComponent';
 
 export function Dashboard() {
   const tasks = useStore(state => state.tasks);
@@ -160,6 +161,9 @@ export function Dashboard() {
           )}
         </div>
       </div>
+
+      {/* Vite 移行テストコンポーネント */}
+      <ViteTestComponent />
     </div>
   );
 }

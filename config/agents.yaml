@@ -32,3 +32,36 @@ agents:
     cost_per_1k_input: 1.25
     cost_per_1k_output: 5.0
     enabled: true
+
+  glm_llm:
+    name: GLM (智谱AI)
+    cli_command: glm
+    default_model: glm-4-flash
+    supports_features:
+      - code
+      - chinese
+    cost_per_1k_input: 0.2
+    cost_per_1k_output: 0.6
+    enabled: true
+
+  minimax_llm:
+    name: MiniMax
+    cli_command: minimax
+    default_model: abab6.5s-chat
+    supports_features:
+      - code
+      - chinese
+    cost_per_1k_input: 0.15
+    cost_per_1k_output: 0.3
+    enabled: true
+
+  kimi_llm:
+    name: Kimi (Moonshot AI)
+    cli_command: kimi
+    default_model: moonshot-v1-8k
+    supports_features:
+      - code
+      - chinese
+    cost_per_1k_input: 0.3
+    cost_per_1k_output: 0.8
+    enabled: true

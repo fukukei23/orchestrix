@@ -36,6 +36,10 @@ class LogAnalyzer:
         # DataFrameに変換
         df = pd.DataFrame(executions)
 
+        # created_at列をdatetimeに変換
+        if 'created_at' in df.columns:
+            df['created_at'] = pd.to_datetime(df['created_at'])
+
         # 時間範囲でフィルタ
         if time_range:
             start = pd.to_datetime(time_range['start'])
@@ -218,7 +222,7 @@ class LogAnalyzer:
             'peak_hour': int(df['hour'].mode()[0]) if len(df) > 0 else None,
             'hourly_distribution': hourly_counts,
             'daily_distribution': daily_counts,
-            'busiest_day': int(daily_counts.get(daily_counts.index[0], 0)) if len(daily_counts) > 0 else None
+            'busiest_day': max(daily_counts, key=daily_counts.get) if daily_counts else None
         }
 
     def _analyze_error_patterns(self, df: pd.DataFrame) -> Dict:

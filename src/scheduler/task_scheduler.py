@@ -5,7 +5,7 @@ Celery Beatを使って定期実行を管理します。
 
 from typing import Dict, List, Optional
 from datetime import datetime, timedelta
-from celery import Celery, schedule
+from celery import Celery
 from celery.schedules import crontab
 import logging
 import croniter
@@ -186,7 +186,7 @@ class TaskScheduler:
             r'毎週.*金曜.*(\d{1,2})時': lambda m: f"0 {m.group(1)} * * 5",
 
             # 毎時
-            r'毎時': "0 * * * *",
+            r'毎時': lambda m: "0 * * * *",
 
             # 毎月
             r'毎月\s*1日\s*(\d{1,2})時': lambda m: f"0 {m.group(1)} 1 * *",

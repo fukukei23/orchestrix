@@ -6,6 +6,8 @@
 
 [![Python](https://img.shields.io/badge/python-3.12+-blue)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/framework-FastAPI-teal)](https://fastapi.tiangolo.com/)
+[![Tests](https://img.shields.io/badge/tests-194%20passing-brightgreen)](tests/)
+[![Coverage](https://img.shields.io/badge/coverage-81%25-green)](tests/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 ---
@@ -215,12 +217,24 @@ npm run electron     # Electronデスクトップアプリ
 ## テストの実行
 
 ```bash
-# ユニットテスト
-pytest tests/unit/
+# ユニットテスト（194テスト）
+pytest tests/unit/ -v
 
-# カバレッジ付き
-pytest --cov=src tests/
+# カバレッジ付き（81%）
+pytest --cov=src --cov-report=term-missing tests/
 ```
+
+### テスト構成
+
+| カテゴリ | テスト数 | 対象モジュール |
+|---------|---------|-------------|
+| Core | 56 | オーケストレーション・コラボレーション・割り当て |
+| API Routes | 36 | Tasks / Auth / Analytics / Agents |
+| LLM | 17 | Factory / Claude / OpenAI クライアント |
+| Scheduler | 21 | TaskScheduler / Celery worker |
+| Analytics | 19 | LogAnalyzer 分析・クラスタリング |
+| Models | 8 | SQLAlchemy モデル・UUID生成 |
+| API Basic | 7 | ヘルスチェック・ルート |
 
 ---
 

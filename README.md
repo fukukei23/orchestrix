@@ -4,6 +4,25 @@
 
 複数のAIエージェントを統括し、24時間自動実行可能なオーケストレーションシステム。
 
+[![Python](https://img.shields.io/badge/python-3.12+-blue)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/framework-FastAPI-teal)](https://fastapi.tiangolo.com/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+---
+
+## 特徴
+
+- **マルチエージェント統括**: Claude Code, GLM, MiniMax, Kimi, Gemini, Codexを統一APIで制御
+- **24/7自動実行**: Celery + Redisによる非同期タスクキューで、エージェントを常時稼働
+- **インテリジェントタスク分配**: 複雑度分析 → 最適エージェント自動割り当て
+- **フルスタック**: FastAPI + PostgreSQL + React + Electronによる本番構成
+
+---
+
+## なぜ作ったか
+
+複数のAIエージェント（Claude Code、GLM、MiniMax等）を個別に操作するのは非効率。タスクの複雑度に応じて最適なエージェントに自動分配し、24時間自律稼働させるオーケストレーション基盤が必要だった。
+
 ---
 
 ## 対応 AI エージェント
@@ -232,9 +251,10 @@ environment:
 
 | 文書 | 説明 |
 |------|------|
-| [docs/AGENTS_COMPARISON.md](docs/AGENTS_COMPARISON.md) | エージェント比較表 |
+| [エージェント比較表](docs/AGENTS_COMPARISON.md) | 各エージェントの特徴・用途比較 |
 | [docker-compose.yml](docker-compose.yml) | コンテナ構成定義 |
 | [requirements.txt](requirements.txt) | Python依存関係 |
+| [仕様書・設計判断](https://github.com/fukukei23/obsidian-ssot/tree/main/01_DECISIONS/orchestrix) | 設計判断の変遷（SSOT） |
 
 ---
 

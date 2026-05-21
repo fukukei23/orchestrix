@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List
 
-from ...database.connection import get_db
+from ...api.dependencies import get_db
 from ...database.models import Execution, Task
 from pydantic import BaseModel
 

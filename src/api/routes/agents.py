@@ -26,7 +26,6 @@ async def list_agents():
     config_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
         '..',
-        '..',
         'config',
         'agents.yaml'
     )
@@ -69,7 +68,6 @@ async def get_agent(agent_id: str):
     """
     config_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-        '..',
         '..',
         'config',
         'agents.yaml'
@@ -120,7 +118,6 @@ async def toggle_agent(agent_id: str, enabled: bool = True):
     """
     config_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-        '..',
         '..',
         'config',
         'agents.yaml'
@@ -179,7 +176,6 @@ async def estimate_cost(
     """
     config_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-        '..',
         '..',
         'config',
         'agents.yaml'

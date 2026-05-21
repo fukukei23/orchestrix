@@ -55,7 +55,7 @@ class TestTaskDecomposer:
 
     def test_decompose_testing_task(self, decomposer):
         """テスト作成タスクの分解をテスト"""
-        description = "Add comprehensive test coverage"
+        description = "Write test cases for the authentication module"
         subtasks = decomposer.decompose(description)
 
         assert len(subtasks) > 1

@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 
-from ..database.connection import get_db
+from ..api.dependencies import get_db
 from ..database.models import User
 from .jwt_handler import verify_password, get_password_hash, create_access_token
 from .dependencies import get_current_user
@@ -29,9 +29,9 @@ class LoginResponse(BaseModel):
 
 class UserCreate(BaseModel):
     """ユーザー作成リクエストモデル"""
-    username: str = EmailStr
-    password: str = PasswordStr
-    email: str = EmailStr
+    username: str
+    password: str
+    email: str
 
 
 @router.post("/login", response_model=LoginResponse, status_code=status.HTTP_200_OK)

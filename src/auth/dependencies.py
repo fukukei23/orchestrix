@@ -5,12 +5,13 @@ from sqlalchemy.orm import Session
 from typing import Annotated
 
 from .jwt_handler import decode_access_token
-from ..database.connection import get_db
+from ..api.dependencies import get_db
 from ..database.models import User
+import jwt
 
 
 # Bearerトークンの設定
-oauth2_scheme = HTTPBearer(tokenUrl="token")
+oauth2_scheme = HTTPBearer()
 
 
 async def get_current_user(
@@ -37,7 +38,7 @@ async def get_current_user(
 
     try:
         payload = decode_access_token(token)
-        user_id: payload.get("sub")
+        user_id = payload.get("sub")
 
         if user_id is None:
             raise credentials_exception

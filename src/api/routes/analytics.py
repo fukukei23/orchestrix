@@ -8,6 +8,8 @@ from typing import List, Optional
 from datetime import datetime, timedelta
 import logging
 
+from ..dependencies import get_db
+
 
 router = APIRouter()
 logger = logging.getLogger(__name__)

@@ -4,10 +4,9 @@
 
 複数のAIエージェントを統括し、24時間自動実行可能なオーケストレーションシステム。
 
+[![CI](https://github.com/fukukei23/orchestrix/actions/workflows/ci.yml/badge.svg)](https://github.com/fukukei23/orchestrix/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.12+-blue)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/framework-FastAPI-teal)](https://fastapi.tiangolo.com/)
-[![Tests](https://img.shields.io/badge/tests-194%20passing-brightgreen)](tests/)
-[![Coverage](https://img.shields.io/badge/coverage-81%25-green)](tests/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 ---
